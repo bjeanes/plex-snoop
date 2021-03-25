@@ -6,7 +6,15 @@ PMS talks to Plex.tv and other upstream services (metadata, avatars, analytics, 
 This is in service of project I am building which needs to talk to the undocumented Plex.tv APIs. You are welcome to
 use it too.
 
-# License
+## Usage
+
+``` sh-session
+$ docker-compose up -d
+$ open http://localhost:8081       # spy on requests
+$ open http://localhost:32400/web  # click around, claim server to account, etc
+```
+
+## License
 
 ```
 Copyright 2021 Bo Jeanes
