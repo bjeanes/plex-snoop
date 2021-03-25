@@ -1,0 +1,38 @@
+# vim: ts=2:sw=2:et:sts=2:ft=yaml
+
+version: '3.7'
+services:
+  mitmproxy:
+    image: 'mitmproxy/mitmproxy:latest'
+    ports:
+      - '127.0.0.1:8081:8081'
+    command: mitmweb --web-host 0.0.0.0
+    volumes:
+      - 'mitmproxy-data:/home/mitmproxy/.mitmproxy'
+
+  plex:
+    image: 'plexinc/pms-docker'
+    volumes:
+      - 'plex-config:/config'
+      - 'mitmproxy-data:/mitmproxy'
+      - './dc-fix-certs.sh:/etc/cont-init.d/00-copy-cacert.sh'
+    environment:
+      # Thanks https://blog.mqbx.nl/2020/04/10/force-plex-media-server-to-use-squid-proxy/
+      #
+      # Fortunately the Plex docker container seems to pass along these env vars pretty straightforwardly.
+      - "http_proxy=http://mitmproxy:8080"
+      - "https_proxy=http://mitmproxy:8080"
+      - "no_proxy=127.0.0.1,localhost"
+
+      # as above but all caps
+      - "HTTP_PROXY=http://mitmproxy:8080"
+      - "HTTPS_PROXY=http://mitmproxy:8080"
+      - "NO_PROXY=127.0.0.1,localhost"
+    ports:
+      - '127.0.0.1:32400:32400'
+    depends_on:
+      - mitmproxy
+
+volumes:
+  mitmproxy-data:
+  plex-config:
