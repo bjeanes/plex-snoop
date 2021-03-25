@@ -6,7 +6,13 @@ services:
     image: 'mitmproxy/mitmproxy:latest'
     ports:
       - '127.0.0.1:8081:8081'
-    command: mitmweb --web-host 0.0.0.0
+    command:
+      - mitmweb
+      - --web-host
+      - 0.0.0.0
+      - --showhost
+      - --anticomp
+      - --anticache
     volumes:
       - 'mitmproxy-data:/home/mitmproxy/.mitmproxy'
 
