@@ -6,6 +6,8 @@ PMS talks to Plex.tv and other upstream services (metadata, avatars, analytics, 
 This is in service of project I am building which needs to talk to the undocumented Plex.tv APIs. You are welcome to
 use it too.
 
+See [`docs/API.md`](docs/API.md) for some of the requests I'm trying to document.
+
 ## Usage
 
 ``` sh-session
