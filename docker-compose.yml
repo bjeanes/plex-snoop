@@ -14,6 +14,8 @@ services:
       - --showhost
       - --anticomp
       - --anticache
+      - --set
+      - view_filter=! ( ~a | ~m OPTIONS | ~t html | ~t woff2 | ~c 301 | ~d google | ~d facebook | ~d gstatic | ~d mozilla | ~d firefox | ~d sentry | ~d transifex.net | ~d digicert | /wp-content/ | resources-cdn )
     volumes:
       - 'mitmproxy-data:/home/mitmproxy/.mitmproxy'
 

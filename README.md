@@ -17,6 +17,25 @@ that you can snoop Plex Web traffic too.
 $ ruby ./snoop.rb
 ```
 
+The `docker-compose.yml` sets a default view filter for `mitmproxy` to hide some noisy and irrelevant requests:
+
+```
+! ( ~a | ~m OPTIONS | ~t html | ~t woff2 | ~c 301 | ~d google.com | ~d facebook | ~d gstatic.com | ~d mozilla | ~d firefox | ~d sentry | ~d transifex.net | ~d digicert | /wp-content/ | resources-cdn )
+```
+
+This hides all assets (JS, CSS, images, etc), all HTML responses (I only care about API calls), redirects, and several
+domains related to the auth pages that Plex Web shows or Firefox internals.
+
+You'll have to remove it from `docker-compose.yml`, edit it to what you want, or use "Edit Options" after `mitmweb`
+boots to see requests which are hidden.
+
+Additionally, it can be helpful to delineate PMS requests from Plex Web requests. I don't know if I can auto-configure
+this, but setting the "Highlight" field to the following filter will highlight non-Firefox requests:
+
+```
+! ~hq "User-Agent.*Firefox"
+```
+
 ## License
 
 ```
