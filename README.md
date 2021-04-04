@@ -10,10 +10,11 @@ See [`docs/API.md`](docs/API.md) for some of the requests I'm trying to document
 
 ## Usage
 
+Make sure you have Firefox installed, as the `snoop.rb` script opens a Firefox instance configured with the proxy so
+that you can snoop Plex Web traffic too.
+
 ``` sh-session
-$ docker-compose up -d
-$ open http://localhost:8081       # spy on requests
-$ open http://localhost:32400/web  # click around, claim server to account, etc
+$ ruby ./snoop.rb
 ```
 
 ## License
